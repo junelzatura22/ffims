@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -20,6 +22,22 @@ class AuthController extends Controller
         ]);
 
         $password = Hash::make($request->password);
-        dd($password);
+        $email = $request->email;
+
+        $credentials = ['email' => $email, 'password' => $password];
+        $remember_token = $request->remember_token;
+
+        if (Auth::attempt($credentials, $remember_token)) {
+            return redirect('/')->with('success', 'Isord!');
+        } else {
+            return redirect('/')->with('error', 'Invalid Username/Password!');
+        }
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect('/');
     }
 }
