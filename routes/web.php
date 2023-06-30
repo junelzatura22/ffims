@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('admin.admin.dashboard');
+Route::get('/',[AuthController::class,'login'])->name('Function for login');
+Route::post('/',[AuthController::class,'getData'])->name('Get the data');
+
+Route::group(['middleware','admin'], function(){
+
+
+
 });
