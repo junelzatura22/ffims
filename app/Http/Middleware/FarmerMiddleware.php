@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FarmerMiddleware
 {
@@ -16,6 +18,13 @@ class FarmerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (Auth::check() && Auth::user()->role == 'Farmer') {
+            return $next($request);
+        } else {
+            Auth::logout();
+            return redirect(url(''));
+        }
     }
+
+  
 }

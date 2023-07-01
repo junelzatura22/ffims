@@ -11,6 +11,17 @@ class AuthController extends Controller
 {
     public function login()
     {
+
+        if (!empty(Auth::check())) {
+            if (Auth::user()->role == "Admin") {
+                return redirect('admin/dashboard');
+            } else if (Auth::user()->role == "Technician") {
+                return redirect('technician/dashboard');
+            } else {
+                return redirect('farmer/dashboard');
+            }
+        }
+
         return view('auth.login');
     }
 
@@ -21,14 +32,11 @@ class AuthController extends Controller
             'email' => 'required|email',
         ]);
 
-        $password = Hash::make($request->password);
-        $email = $request->email;
-
-        $credentials = ['email' => $email, 'password' => $password];
-        $remember_token = $request->remember_token;
+        $credentials = ['email' => $request->email, 'password' => $request->password];
+        $remember_token = $request->remembertoken;
 
         if (Auth::attempt($credentials, $remember_token)) {
-            return redirect('/')->with('success', 'Isord!');
+            return redirect('admin/dashboard');
         } else {
             return redirect('/')->with('error', 'Invalid Username/Password!');
         }
@@ -36,8 +44,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Session::flush();
+      
         Auth::logout();
-        return redirect('/');
+        return redirect(url(''));
     }
 }

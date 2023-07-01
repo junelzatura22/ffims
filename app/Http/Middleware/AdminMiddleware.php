@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -16,6 +18,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        // if not empty then proceed 
+        //should login as admin base on role
+        if (Auth::check() && Auth::user()->role == 'Admin') {
+            return $next($request);
+        } else {
+            Auth::logout();
+            return redirect(url(''));
+        }
     }
 }

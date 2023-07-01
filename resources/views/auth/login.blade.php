@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="remember_token">
+                                <input type="checkbox" id="remember" name="remembertoken">
                                 <label for="remember">
                                     Remember Me
                                 </label>

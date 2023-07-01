@@ -1,10 +1,11 @@
-@if (Session::has('success'))
+@if (!empty(Session::has('success')))
     <div class="alert alert-success" role="alert">
-        Success
+        {{ session('success') }}
     </div>
 @endif
-@if (Session::has('error'))
+@if (!empty(Session::has('error')))
     <div class="alert alert-danger" role="alert">
-        Error
+        {{ session('error') }}
     </div>
 @endif
+
