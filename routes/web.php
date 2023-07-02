@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FarmerController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TechnicianController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,17 @@ Route::get('logout',[AuthController::class,'logout'])->name('Logout');
 
 
 
-Route::group(['middleware'=>'admin'], function(){
-    Route::get('admin/dashboard',[DashboardController::class,'dashboard'])->name('Admin Dashboard');
+    Route::group(['middleware'=>'admin','prefix'=>'admin'], function(){
+    Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/user/list',[AdminController::class,'userList'])->name('userlist');
+    // position crud 
+    Route::get('/management/position',[PositionController::class,'index'])->name('management.position');
+    Route::post('/management/position', [PositionController::class, 'store'])->name('store');
+    Route::get('/management/fetchall', [PositionController::class, 'fetchAll'])->name('fetchAll');
+    Route::get('/management/delete/{id}', [PositionController::class, 'delete'])->name('delete');
+    Route::get('/management/position/{id}', [PositionController::class, 'edit'])->name('edit');
+    Route::post('/management/update', [PositionController::class, 'update'])->name('update');
+    // Designation
 });
 
 Route::group(['middleware'=>'technician'], function(){

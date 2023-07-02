@@ -26,62 +26,96 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="fa-solid fa-window-maximize nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="fa-solid fa-window-maximize nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>  
-            </ul>
-          </li>
-         
-         
-          
-       
-          <li class="nav-header">ACCOUNTS</li>
-      
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="fa-solid fa-user nav-icon"></i>
-              <p>
-                User
-              </p>
-            </a>
-          </li>
-          <li class="nav-header">SETTNGS</li>
-      
-          <li class="nav-item">
-            <a href={{ url('logout') }} class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
+
+               @switch(Auth::user()->role)
+                   @case('Admin')
+                   <li class="nav-item">
+                    <a href="pages/widgets.html" class="nav-link">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Dashboard
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-header">MANAGEMENT</li>
+                  <li class="nav-item @if(Request::segment(2)=='management') menu-open @endif">
+                    <a href="#" class="nav-link @if(Request::segment(2)=='management') active @endif">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        MANAGEMENT
+                        <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">2</span>
+                      </p>
+                    </a>
+                    {{-- <ul class="nav nav-treeview @if(Request::segment(2)=='management') menu-open @endif"> --}}
+                    <ul class="nav nav-treeview ">
+                     
+                      <li class="nav-item">
+                        <a href={{url('admin/management/position')}} class="nav-link {{ Request::is('admin/management/position') ? 'active' : '' }}">
+                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                          <p>Position</p>
+                        </a>
+                      </li>
+                     
+                    </ul>
+                  </li> 
+               
+                  <li class="nav-header">ACCOUNTS</li>
+              
+                  <li class="nav-item">
+                    <a href={{url('admin/user/list')}} class="nav-link {{ Request::is('admin/user/list') ? 'active' : '' }}">
+                    {{-- <a href={{url('admin/user/list')}} class="nav-link @if(Request::segment(2)=='user') active @endif"> --}}
+                      <i class="fa-solid fa-user nav-icon"></i>
+                      <p>
+                        User
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-header">SETTNGS</li>
+              
+                  <li class="nav-item">
+                    <a href={{ url('logout') }} class="nav-link">
+                      <i class="nav-icon far fa-image"></i>
+                      <p>
+                        Logout
+                      </p>
+                    </a>
+                  </li>
+                       @break
+                   @case('Technician')
+                   <li class="nav-item">
+                    <a href="pages/widgets.html" class="nav-link">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Dashboard
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href={{url('admin/user/list')}} class="nav-link @if(Request::segment(2)=='user') active @endif">
+                      <i class="fa-solid fa-user nav-icon"></i>
+                      <p>
+                        My Account
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-header">SETTNGS</li>
+              
+                  <li class="nav-item">
+                    <a href={{ url('logout') }} class="nav-link">
+                      <i class="nav-icon far fa-image"></i>
+                      <p>
+                        Logout
+                      </p>
+                    </a>
+                  </li>
+                       @break
+                   @default
+                       
+               @endswitch
+        
+
+        
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
