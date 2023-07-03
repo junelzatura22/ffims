@@ -61,6 +61,7 @@
 <script src={{ asset('dist/js/pages/dashboard.js') }}></script>
 
 <!-- ChartJS -->
+{{-- for the position script  --}}
 <script>
     $(function() {
         $("#add_position_form").validate({
@@ -99,11 +100,29 @@
                 }
             }
         });
+        $("#addFormDesignation").validate({
+            rules: {
+                d_abr: {
+                    required: true,
+                },
+                d_description: {
+                    required: true,
+                }
+            },
+            message: {
+                d_abr: {
+                    required: "Please enter abbreviation",
+                },
+                d_description: {
+                    required: "Please enter description",
+                }
+            }
+        });
         // add new employee ajax request
         $("#add_position_form").submit(function(e) {
             e.preventDefault();
             const fd = new FormData(this);
-
+            $("#add_position_btn").text('Adding...');
             $.ajax({
                 url: '{{ url('admin/management/position') }}',
                 method: 'post',
@@ -175,26 +194,29 @@
         $(document).on('click', '.editIcon', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
-            var url = '{{ url('admin/management/position') }}';
-            var dltUrl = url + "/" + id;
-            $.ajax({
-                url: dltUrl,
-                method: 'get',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {   
-                    $("#edit_position_form").find("#rank").val(response.rank);
-                    $("#edit_position_form").find("#p_desc").val(response.p_desc);
-                    $("#edit_position_form").find("#p_id").val(response.p_id);     
-                }
-            });
+            let rank = $(this).parents('table tr').find('.rank').html();
+            let p_desc = $(this).parents('table tr').find('.p_desc').html();
+            $("#edit_position_form").find("#rank").val(rank);
+            $("#edit_position_form").find("#p_desc").val(p_desc);
+            $("#edit_position_form").find("#p_id").val(id);
+
+        });
+        //edit designation
+        $(document).on('click', '.editBtn', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('table tr').attr('id');
+            let d_abr = $(this).parents('table tr').find('.d_abr').html();
+            let d_description = $(this).parents('table tr').find('.d_description').html();
+            $("#editFormDesignation").find("#d_abr").val(d_abr);
+            $("#editFormDesignation").find("#d_description").val(d_description);
+            $("#editFormDesignation").find("#d_id").val(id);
         });
 
         // update employee ajax request
         $("#edit_position_form").submit(function(e) {
             e.preventDefault();
             const fd = new FormData(this);
+            $("#edit_position_btn").text('Updating...');
             var url = '{{ url('admin/management/update') }}';
             $.ajax({
                 url: url,
@@ -230,10 +252,9 @@
                 method: 'get',
                 success: function(response) {
                     $("#show_position").html(response);
-                    var t = $("table").DataTable({
+                    var t = $("#positionTable").DataTable({
                         order: [2, 'asc'],
                         "responsive": true,
-
                     });
                     t.on('order.dt search.dt', function() {
                         t.column(0, {
@@ -243,14 +264,28 @@
                             cell.innerHTML = i + 1;
                         });
                     }).draw();
-
-
                 }
             });
         }
 
+        var tab = $('#designationTable').DataTable({
+            search: {
+                return: true,
+            },
+            order: [4, 'desc'],
+            "responsive": true,
+
+        });
+
+
+        $('.alert').on('click', function() {
+            $(this).hide();
+        });
+
     });
 </script>
+
+{{-- for the designation script  --}}
 </body>
 
 </html>

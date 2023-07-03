@@ -18,7 +18,7 @@
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' />
     <link rel='stylesheet'
         href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css' />
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" /> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
 
     <link rel="stylesheet" href={{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}>
     <link rel="stylesheet" href={{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}>
@@ -34,12 +34,26 @@
     <link rel="stylesheet" href={{ asset('plugins/daterangepicker/daterangepicker.css') }}>
     <!-- summernote -->
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
-
+    {{-- <select name="designationTable_length" aria-controls="designationTable" class="custom-select custom-select-sm form-control form-control-sm">
+        <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> --}}
     <style>
         .error {
             font-size: 0.8rem;
             color: red;
             font-style: italic;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 6rem;
+            display: inline-block;
+            font-size: 1rem;
+            padding: 0 1rem;
+        }
+
+        div.dataTables_wrapper div.dataTables_filter input {
+            margin-left: 0.5em;
+            display: inline-block;
+            width: 300px;
         }
     </style>
 </head>

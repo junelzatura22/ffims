@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TechnicianController;
@@ -37,6 +38,9 @@ Route::get('logout',[AuthController::class,'logout'])->name('Logout');
     Route::get('/management/position/{id}', [PositionController::class, 'edit'])->name('edit');
     Route::post('/management/update', [PositionController::class, 'update'])->name('update');
     // Designation
+    Route::get('/management/designation',[DesignationController::class,'index'])->name('management.designation');
+    Route::post('/management/designation', [DesignationController::class, 'store'])->name('store');
+    Route::get('/management/designation/{id}', [DesignationController::class, 'edit'])->name('edit');
 });
 
 Route::group(['middleware'=>'technician'], function(){

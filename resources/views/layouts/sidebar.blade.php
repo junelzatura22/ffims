@@ -56,6 +56,12 @@
                           <p>Position</p>
                         </a>
                       </li>
+                      <li class="nav-item">
+                        <a href={{url('admin/management/designation')}} class="nav-link {{ Request::is('admin/management/designation') ? 'active' : '' }}">
+                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                          <p>Designation</p>
+                        </a>
+                      </li>
                      
                     </ul>
                   </li> 

@@ -29,7 +29,7 @@ class PositionController extends Controller
         $output = '';
         $counter = 1;
         if ($position->count() > 0) {
-            $output .= '  <table class="table table-bordered">
+            $output .= '  <table id="positionTable" class="table table-bordered">
             <thead>
               <tr>
                 <th>No.</th>
@@ -44,9 +44,9 @@ class PositionController extends Controller
             foreach ($position as $rs) {
                 $output .= '<tr>
                 <td></td>
-                <td>' . $rs->p_desc . '</td>
-                <td>' . $rs->rank . '</td>
-                <td>' . date('F, m Y h:i A', strtotime($rs->created_at)) . '</td>
+                <td class="p_desc">' . $rs->p_desc . '</td>
+                <td class="rank">' . $rs->rank . '</td>
+                <td>' . date('F, d Y h:i A', strtotime($rs->created_at)) . '</td>
                 <td>' . $rs->author . '</td>
                 <td>
                   <a href="" id="' . $rs->p_id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editPositionModal"><i class="bi-pencil-square h4"></i></a>
