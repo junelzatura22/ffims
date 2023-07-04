@@ -28,8 +28,23 @@ class DesignationController extends Controller
         return back()->with('success',"Successfully Added Designation");
     }
 
-    public function edit($id){
-        $designation = Designation::find($id);
+    public function edit(Request $request){
+          //
+          $designation = Designation::find($request->d_id);
+          $designation->d_abr = trim(strtoupper($request->d_abr));
+          $designation->d_description = trim(mb_strtoupper($request->d_description));
+          $designation->created_by = $request->created_by;
+          $designation->touch();
+          //
+          return back()->with('success',"Successfully Update Designation");
+        
+    }
+    public function delete(Request $request){
+          //
+          $designation = Designation::find($request->d_id);
+          $designation->delete();
+          //
+          return back()->with('success',"Successfully Deleted");
         
     }
 }

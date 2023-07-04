@@ -212,6 +212,17 @@
             $("#editFormDesignation").find("#d_id").val(id);
         });
 
+        //edit designation
+        $(document).on('click', '.deleteDesignation', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('table tr').attr('id');
+            let d_abr = $(this).parents('table tr').find('.d_abr').html();
+  
+            $("#deletFormDesignation").find("#d_id").val(id);
+            $("#deletFormDesignation").find("#theDesignation").val(d_abr);
+         
+        });
+
         // update employee ajax request
         $("#edit_position_form").submit(function(e) {
             e.preventDefault();

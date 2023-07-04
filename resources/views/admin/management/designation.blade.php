@@ -37,9 +37,12 @@
                                         <td class="">{{ $item->author }}</td>
                                         <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}</td>
                                         <td>
-                                            <a href="" class="text-success mx-1 editBtn" id="editModal" data-bs-toggle="modal"
-                                                data-bs-target="#editDesignationModal"><i class="bi-pencil-square h4"></i></a>
-                                            <a href="" class="text-danger mx-1 "><i class="bi-trash h4"></i></a>
+                                            <a href="" class="text-success mx-1 editBtn" id="editModal"
+                                                data-bs-toggle="modal" data-bs-target="#editDesignationModal">
+                                                <i class="bi-pencil-square h4"></i></a>
+                                            <a href="" class="text-danger mx-1 deleteDesignation"
+                                                data-bs-toggle="modal" data-bs-target="#delDesignationModal">
+                                                <i class="bi-trash h4"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -103,7 +106,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action={{ url('admin/management/designation') }} method="post" id="editFormDesignation">
+                        <form action={{ url('admin/management/edit') }} method="post" id="editFormDesignation">
                             @csrf
                             <div class="form-group">
                                 <label for="">Designation</label>
@@ -116,17 +119,45 @@
                                     placeholder="Ex. Philippine Crop Insurance Corporation">
                                 <input type="hidden" name="created_by" id="created_by" class="form-control"
                                     value={{ Auth::user()->id }}>
-                                <input type="hidden" name="d_id" id="d_id" class="form-control"
-                                    >
+                                <input type="hidden" name="d_id" id="d_id" class="form-control">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="submitAddDesignation">Submit</button>
+                                <button type="submit" class="btn btn-warning" id="submitAddDesignation">Update</button>
                             </div>
                         </form>
 
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        {{-- Delete Modal  --}}
+
+        <div class="modal fade" id="delDesignationModal" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-3" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action={{ url('admin/management/delete') }} method="post" id="deletFormDesignation">
+                            @csrf
+                            <div class="form-group">
+                                <h3>Are you sure you want to delete?
+                                </h3>
+                                <input type="hidden" name="d_id" id="d_id" class="form-control"
+                                    placeholder="Ex. PCIC">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger" id="deleteDesignation">Delete</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

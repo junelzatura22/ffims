@@ -62,8 +62,14 @@
                           <p>Designation</p>
                         </a>
                       </li>
-                     
+                      <li class="nav-item">
+                        <a href={{url('admin/management/commodity')}} class="nav-link {{ Request::is('admin/management/commodity') ? 'active' : '' }}">
+                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                          <p>Commodity</p>
+                        </a>
+                      </li> 
                     </ul>
+
                   </li> 
                
                   <li class="nav-header">ACCOUNTS</li>
