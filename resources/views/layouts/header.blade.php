@@ -55,6 +55,23 @@
             display: inline-block;
             width: 300px;
         }
+
+        .nav-item {
+            font-size: 0.9rem;
+        }
+
+        table.dataTable td {
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 450px) {
+
+            div.dataTables_wrapper div.dataTables_filter input {
+                margin-left: 0.5em;
+                display: inline-block;
+                width: 200px;
+            }
+        }
     </style>
 </head>
 

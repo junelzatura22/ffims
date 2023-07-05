@@ -37,9 +37,9 @@
                       </p>
                     </a>
                   </li>
-                  <li class="nav-header">MANAGEMENT</li>
+                  <li class="nav-header ">MANAGEMENT</li>
                   <li class="nav-item @if(Request::segment(2)=='management') menu-open @endif">
-                    <a href="#" class="nav-link @if(Request::segment(2)=='management') active @endif">
+                    <a href="" class="nav-link @if(Request::segment(2)=='management') active @endif">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         MANAGEMENT
@@ -81,8 +81,9 @@
                       <p>
                         User
                       </p>
-                    </a>
+                    </a> 
                   </li>
+
                   <li class="nav-header">SETTNGS</li>
               
                   <li class="nav-item">
@@ -93,6 +94,11 @@
                       </p>
                     </a>
                   </li>
+                  
+
+
+
+
                        @break
                    @case('Technician')
                    <li class="nav-item">

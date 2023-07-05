@@ -32,7 +32,7 @@ class PositionController extends Controller
             $output .= '  <table id="positionTable" class="table table-bordered">
             <thead>
               <tr>
-                <th>No.</th>
+                <th></th>
                 <th>Description</th>
                 <th>Rank</th> 
                 <th>Date Created</th> 
