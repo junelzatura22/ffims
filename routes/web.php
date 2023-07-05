@@ -41,6 +41,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     // Commodity
     Route::get('/management/commodity', [CommodityController::class, 'index'])->name('index.commodity');
     Route::post('/management/commodity', [CommodityController::class, 'store'])->name('store.commodity');
+    Route::post('/management/edit', [CommodityController::class, 'edit'])->name('edit.commodity');
+    Route::post('/management/delete', [CommodityController::class, 'delete'])->name('delete.commodity');
 
 });
 

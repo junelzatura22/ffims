@@ -118,6 +118,37 @@
                 }
             }
         });
+        $("#addCommodityForm").validate({
+            rules: {
+                commodity: {
+                    required: true,
+                }
+            },
+            message: {
+                commodity: {
+                    required: "Please enter commodity/program",
+                }
+            }
+        });
+        $("#editCommodityForm").validate({
+            rules: {
+                commodity: {
+                    required: true,
+                }
+            },
+            message: {
+                commodity: {
+                    required: "Please enter commodity/program",
+                }
+            }
+        });
+
+        $('#addCommodityForm #commodity').bind('keyup blur', function() {
+                var node = $(this);
+                node.val(node.val().replace(/[^A-Za-z_\s]/, ''));
+            } // (/[^a-z]/g,''
+        );
+
         // add new employee ajax request
         $("#add_position_form").submit(function(e) {
             e.preventDefault();
@@ -199,7 +230,6 @@
             $("#edit_position_form").find("#rank").val(rank);
             $("#edit_position_form").find("#p_desc").val(p_desc);
             $("#edit_position_form").find("#p_id").val(id);
-
         });
         //edit designation
         $(document).on('click', '.editBtn', function(e) {
@@ -221,6 +251,23 @@
             $("#deletFormDesignation").find("#d_id").val(id);
             $("#deletFormDesignation").find("#theDesignation").val(d_abr);
 
+        });
+        //edit commodity
+        $(document).on('click', '.getEditCommodity', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('tr').attr('id');
+            let com_name = $(this).parents('table tr').find('.com_name').html();
+
+            $("#editCommodityModal").find("#commodity").val(com_name);
+            $("#editCommodityModal").find("#com_id").val(id);
+                       
+        });
+        //edit commodity
+        $(document).on('click', '.getDeleteCommodity', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('tr').attr('id');
+            $("#deleteCommodityModal").find("#com_id").val(id);
+                       
         });
 
         // update employee ajax request

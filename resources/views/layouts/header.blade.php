@@ -37,6 +37,11 @@
     {{-- <select name="designationTable_length" aria-controls="designationTable" class="custom-select custom-select-sm form-control form-control-sm">
         <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> --}}
     <style>
+
+   
+        
+       
+
         .error {
             font-size: 0.8rem;
             color: red;
@@ -61,7 +66,7 @@
         }
 
         table.dataTable td {
-            font-size: 1rem;
+            font-size: 0.875rem;
         }
 
         @media screen and (max-width: 450px) {
@@ -75,7 +80,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed text-sm">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -233,15 +238,10 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">{{ !empty($areaIdentifier) ? $areaIdentifier : 'Dashboard' }}</h1>
+                        <div>
+                            <h4 class="m-0">{{ !empty($areaIdentifier) ? $areaIdentifier : 'Dashboard' }}</h4>
                         </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div><!-- /.col -->
+
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
