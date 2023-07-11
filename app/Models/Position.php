@@ -24,4 +24,10 @@ class Position extends Model
        ->join('users','users.id','position.created_by')
        ->orderby('rank', 'asc')->get();//this will not be based because the DataTable sets order
     }
+
+    public static function showPosition()
+    {
+       return self::select('position.*')
+       ->orderby('p_desc', 'asc')->get();
+    }
 }

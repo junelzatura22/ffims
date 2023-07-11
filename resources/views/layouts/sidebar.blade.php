@@ -52,20 +52,28 @@
                      
                       <li class="nav-item">
                         <a href={{url('admin/management/position')}} class="nav-link {{ Request::is('admin/management/position') ? 'active' : '' }}">
-                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                          <i class="fa-solid fa-users-line nav-icon"></i>
                           <p>Position</p>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href={{url('admin/management/designation')}} class="nav-link {{ Request::is('admin/management/designation') ? 'active' : '' }}">
-                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                      
+                          <i class="fa-solid fa-user-tie  nav-icon"></i>
                           <p>Designation</p>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href={{url('admin/management/commodity')}} class="nav-link {{ Request::is('admin/management/commodity') ? 'active' : '' }}">
-                          <i class="fa-solid fa-check-to-slot nav-icon"></i>
+                          <i class="fa-solid fa-tractor nav-icon"></i>
                           <p>Commodity</p>
+                        </a>
+                      </li> 
+                      <li class="nav-item">
+                        <a href={{url('admin/management/farmactivity')}} class="nav-link {{ Request::is('admin/management/farmactivity') ? 'active' : '' }}">
+                
+                          <i class="fa-solid fa-wheat-awn nav-icon" ></i>
+                          <p>Farm Activity</p>
                         </a>
                       </li> 
                     </ul>
@@ -75,7 +83,7 @@
                   <li class="nav-header">ACCOUNTS</li>
               
                   <li class="nav-item">
-                    <a href={{url('admin/user/list')}} class="nav-link {{ Request::is('admin/user/list') ? 'active' : '' }}">
+                    <a href={{url('admin/user/list')}} class="nav-link @if(Request::segment(2)=='user') active @endif">
                     {{-- <a href={{url('admin/user/list')}} class="nav-link @if(Request::segment(2)=='user') active @endif"> --}}
                       <i class="fa-solid fa-user nav-icon"></i>
                       <p>

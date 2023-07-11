@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssignCommodityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommodityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\FarmingActivity;
+use App\Http\Controllers\FarmingActivityController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\RegionProvinceMunBarangay;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +29,18 @@ Route::get('logout', [AuthController::class, 'logout'])->name('Logout');
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    //user
     Route::get('/user/list', [AdminController::class, 'userList'])->name('userlist');
+    Route::get('/user/register', [AdminController::class, 'register'])->name('register.user');
+    Route::post('/user/register', [AdminController::class, 'store'])->name('store.user');
+    //for the assigned barangay, province, region and municipality
+    
+    Route::get('/user/getprovince/{regCode}', [RegionProvinceMunBarangay::class, 'getProvince'])->name('getProvince.RegionProvinceMunBarangay');
+    Route::get('/user/getcityMun/{provCode}', [RegionProvinceMunBarangay::class, 'getCityMun'])->name('getCityMun.RegionProvinceMunBarangay');
+    Route::get('/user/getBarangay/{citymunCode}', [RegionProvinceMunBarangay::class, 'getBarangay'])->name('getBarangay.RegionProvinceMunBarangay');
+    //wala ni gamit ang assignment 
+    Route::get('/user/assignment/{id}', [AssignCommodityController::class, 'assignment'])->name('assignment.user');
+    Route::post('/user/assignment', [AssignCommodityController::class, 'saveAssignment'])->name('save.user.assignment');
     // position crud
     Route::get('/management/position', [PositionController::class, 'index'])->name('management.position');
     Route::post('/management/position', [PositionController::class, 'store'])->name('store.position');
@@ -43,7 +58,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('/management/commodity', [CommodityController::class, 'store'])->name('store.commodity');
     Route::post('/management/edit', [CommodityController::class, 'edit'])->name('edit.commodity');
     Route::post('/management/delete', [CommodityController::class, 'delete'])->name('delete.commodity');
-
+    //Farm Commodity
+    Route::get('/management/farmactivity', [FarmingActivityController::class, 'index'])->name('index.farmactivity');
+    Route::post('/management/farmactivity', [FarmingActivityController::class, 'store'])->name('store.farmactivity');
+    Route::post('/management/edit', [FarmingActivityController::class, 'edit'])->name('edit.farmactivity');
+    Route::post('/management/delete', [FarmingActivityController::class, 'delete'])->name('delete.farmactivity');
 });
 
 Route::group(['middleware' => 'technician'], function () {

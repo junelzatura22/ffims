@@ -25,4 +25,6 @@ class Designation extends Model
        ->join('users','users.id','designation.created_by')
        ->orderby('created_at', 'desc')->get();//this will not be based because the DataTable sets order
     }
+
+   
 }

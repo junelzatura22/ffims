@@ -143,7 +143,31 @@
             }
         });
 
+        $("#addFarmingActivityForm").validate({
+            rules: {
+                fa_name: {
+                    required: true,
+                },
+                commodity_id: {
+                    required: true,
+                }
+            },
+            message: {
+                fa_name: {
+                    required: "Please enter commodity/program",
+                },
+                commodity_id: {
+                    request: "Please select commodity",
+                }
+            }
+        });
+
         $('#addCommodityForm #commodity').bind('keyup blur', function() {
+                var node = $(this);
+                node.val(node.val().replace(/[^A-Za-z_\s]/, ''));
+            } // (/[^a-z]/g,''
+        );
+        $('#addFarmingActivityForm #fa_name').bind('keyup blur', function() {
                 var node = $(this);
                 node.val(node.val().replace(/[^A-Za-z_\s]/, ''));
             } // (/[^a-z]/g,''
@@ -221,6 +245,27 @@
         });
 
 
+        // edit farming activity ajax request
+        $(document).on('click', '.getEditFarmingActivityBtn', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('tr').attr('id');
+            let fa_name = $(this).parents('table tr').find('.fa_name').html();
+            let com_id = $(this).parents('table tr').find('.com_id').html(); //commodity id
+
+            $("#editFarmingActivityForm").find("#fa_name").val(fa_name);
+            $("#editFarmingActivityForm option[value=" + com_id + "]").prop('selected', true);
+            $("#editFarmingActivityForm").find("#fa_id").val(id);
+
+        });
+        // delete farming activity ajax request
+        $(document).on('click', '.getDeleteFarmingActivityBtn', function(e) {
+            e.preventDefault();
+            let id = $(this).parents('tr').attr('id');
+
+
+            $("#deleteFarmingActivityForm").find("#fa_id").val(id);
+
+        });
         // edit employee ajax request
         $(document).on('click', '.editIcon', function(e) {
             e.preventDefault();
@@ -260,14 +305,14 @@
 
             $("#editCommodityModal").find("#commodity").val(com_name);
             $("#editCommodityModal").find("#com_id").val(id);
-                       
+
         });
         //edit commodity
         $(document).on('click', '.getDeleteCommodity', function(e) {
             e.preventDefault();
             let id = $(this).parents('tr').attr('id');
             $("#deleteCommodityModal").find("#com_id").val(id);
-                       
+
         });
 
         // update employee ajax request
@@ -348,6 +393,104 @@
             $(this).hide();
         });
 
+    });
+
+    //for the drop down button
+    $('#region-list').on('change', function() {
+        var regCode = this.value;
+        let csrf = '{{ csrf_token() }}';
+        var queryUrl = '{{ url('admin/user/getprovince') }}';
+        var urlFi = queryUrl + "/" + regCode;
+
+        $("#province-list").html('');
+        $.ajax({
+            url: urlFi,
+            type: "get",
+            data: {
+                _token: csrf
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#province-list').html('<option value="">Select Province</option>');
+                $.each(result.province, function(key, value) {
+                    $("#province-list").append('<option value="' + value.provCode + '">' +
+                        value
+                        .provDesc + '</option>');
+                });
+                $("#barangay-list").html(''); //refresh
+            }
+        });
+    });
+    //for the drop down button
+    $('#province-list').on('change', function() {
+
+        // alert(urlFi);
+        let csrf = '{{ csrf_token() }}';
+        var provCode = this.value;
+        var queryUrl = '{{ url('admin/user/getcityMun') }}';
+        var urlFi = queryUrl + "/" + provCode;
+        $("#citymun-list").html(''); //refresh
+
+        $.ajax({
+            url: urlFi + "",
+            type: "get",
+            data: {
+                _token: csrf
+            },
+            dataType: 'json',
+            success: function(result) {
+                $('#citymun-list').html('<option value="">Select City/Municipality</option>');
+                $.each(result.citymun, function(key, value) {
+                    $("#citymun-list").append('<option value="' + value.citymunCode + '">' +
+                        value.citymunDesc + '</option>');
+                });
+                $("#barangay-list").html(''); //refresh
+            }
+
+        });
+    });
+
+
+    $('#citymun-list').on('change', function() {
+        // alert(urlFi);
+        let csrf = '{{ csrf_token() }}';
+        var citymunCode = this.value;
+        var queryUrl = '{{ url('admin/user/getBarangay') }}';
+        var urlFis = queryUrl + "/" + citymunCode;
+        $("#barangay-list").html(''); //refresh
+        $.ajax({
+            url: urlFis,
+            type: "get",
+            data: {
+                _token: csrf
+            },
+            dataType: 'json',
+            success: function(result) {
+
+                $.each(result.barangay, function(key, value) {
+                    // $("#barangay-list").append(value.brgyDesc);
+
+                    var output = '<div class="form-group col-3">';
+                    output += '<div class="form-check form-switch ml-lg-4">';
+                    output +=
+                        '<input class="form-check-input" type="checkbox" name="assigned_barangay[]" id="flexSwitchCheckChecked" value=' +
+                        value.brgyCode + '  {{ is_array(old('assigned_barangay')) && in_array('value.brgyCode', old('assigned_barangay')) ? ' checked' : '' }}>';
+                    output +=
+                        '<label class="form-check-label" for="flexSwitchCheckChecked">' +
+                        value.brgyDesc + '</label>';
+                    output += "</div>";
+                    output += "</div>";
+                    //   $output.='ml-lg-4"><input class="form-check-input" type="checkbox" name="commodity[]" id="flexSwitchCheckChecked" value="'.value.brgyCode.'">';  
+
+
+                    // '<div class="form-group col-3"><div class="form-check form-switch ml-lg-4"><input class="form-check-input" type="checkbox" name="commodity[]" id="flexSwitchCheckChecked" value="'.value.brgyCode.'"><label class="form-check-label" for="flexSwitchCheckChecked">"'.value.brgyDesc.'"</label></div></div>'
+                    $("#barangay-list").append(output);
+
+
+
+                });
+            }
+        });
     });
 </script>
 

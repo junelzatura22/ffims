@@ -37,10 +37,18 @@
     {{-- <select name="designationTable_length" aria-controls="designationTable" class="custom-select custom-select-sm form-control form-control-sm">
         <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> --}}
     <style>
+        .main-sidebar {
 
-   
-        
-       
+            /* background-color: #0f5328 !important */
+        }
+
+
+        .form-check-label, .form-check-input {
+            font-size: 1rem;
+
+        }
+
+     
 
         .error {
             font-size: 0.8rem;
