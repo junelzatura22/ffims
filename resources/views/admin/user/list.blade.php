@@ -58,7 +58,7 @@
                                     <!-- /.col -->
                                     <div class="d-flex gap-1">
                                         <div class="description-block">
-                                            <a href="{{ url('admin/user/list    /' . $item->id) }}"><i
+                                            <a href="{{ url('admin/user/list/' . $item->id) }}"><i
                                                     class="fa-solid fa-pen-to-square btn btn-warning shadow"></i></a>
                                         </div>
                                         <div class="description-block">

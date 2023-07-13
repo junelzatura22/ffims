@@ -32,11 +32,12 @@ class AdminController extends Controller
        
         $userData = User::find($request->id);
         $commodityList = Commodity::commodityList(); //did not used
-       
-
+        $position = Position::showPosition();
+        $barangay = Barangay::showBarangays(Auth::user()->municipality_assigned);
+        $p_desc = User::getPosition($request->id);
         if (!empty($userData)) {
             $areaIdentifier = "User Management | User Profile";
-            return view('admin.user.edit', compact('areaIdentifier','userData','commodityList'));
+            return view('admin.user.edit', compact('areaIdentifier','userData','commodityList','position','barangay','p_desc'));
         } else {
             $areaIdentifier = "INVALID DATA SEARCHING";
             return view('layouts.abort', compact('areaIdentifier'));
