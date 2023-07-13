@@ -33,20 +33,13 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                              
-                                    
+
+
                                     <div class="description-block ">
                                         <h5 class="description-header">Position</h5>
                                         <span class="description-text">{{ $item->description }}</span>
                                     </div>
                                     <!-- /.description-block -->
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="description-block">
-                                        <h5 class="description-header">Designation</h5>
-                                        <span class="description-text">Information Technology Officer 1</span>
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -54,8 +47,8 @@
                                         <h5 class="description-header">Commodity</h5>
                                         <span class="description-text">
                                             @foreach (json_decode($item->assigned_commodity) as $assignment)
-                                            {{ $assignment }}
-                                        @endforeach
+                                                {{ $assignment }}
+                                            @endforeach
 
                                         </span>
                                     </div>
@@ -65,7 +58,7 @@
                                     <!-- /.col -->
                                     <div class="d-flex gap-1">
                                         <div class="description-block">
-                                            <a href=""><i
+                                            <a href="{{ url('admin/user/list    /' . $item->id) }}"><i
                                                     class="fa-solid fa-pen-to-square btn btn-warning shadow"></i></a>
                                         </div>
                                         <div class="description-block">

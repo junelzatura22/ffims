@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barangay;
+use App\Models\City;
 use App\Models\Commodity;
 use App\Models\Designation;
 use App\Models\Position;
@@ -23,15 +25,37 @@ class AdminController extends Controller
         $areaIdentifier = "User Management";
         return view('admin.user.list', compact('areaIdentifier', 'allUsers'));
     }
+
+
+    public function edit(Request $request){
+
+       
+        $userData = User::find($request->id);
+        $commodityList = Commodity::commodityList(); //did not used
+       
+
+        if (!empty($userData)) {
+            $areaIdentifier = "User Management | User Profile";
+            return view('admin.user.edit', compact('areaIdentifier','userData','commodityList'));
+        } else {
+            $areaIdentifier = "INVALID DATA SEARCHING";
+            return view('layouts.abort', compact('areaIdentifier'));
+        }
+    }
+
     public function register()
     {
+
+      
         $province = Province::showRegion();
         $region = Region::showRegion();
         $position = Position::showPosition();
+        $citymun = City::showCityMun(Auth::user()->province_assigned);
+        $barangay = Barangay::showBarangays(Auth::user()->municipality_assigned);
         $commodityList = Commodity::commodityList(); //did not used
         $areaIdentifier = "User Management | Register";
         return view('admin.user.register', compact('areaIdentifier', 'commodityList',
-         'position', 'region','province'));
+         'position', 'region','province','citymun','barangay'));
     }
 
 
@@ -39,19 +63,19 @@ class AdminController extends Controller
     public function store(Request $request)
     {
 
+     
+//      remove functions
+//     "password" => "required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|:min:9",
 
         $request->validate([
             "name" => "required|regex:/^[a-zA-Z ]*$/",
             "lastname" => "required|regex:/^[a-zA-Z ]*$/",
             "email" => "required|email|unique:users",
             "contact" => "required|max:11|min:11",
-            "password" => "required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|:min:9",
+        
             "role" => "required",
             "position" => "required",
             "assigned_commodity" => "required",
-            "region_assigned" => "required",
-            "province_assigned" => "required",
-            "city_assigned" => "required",
             "assigned_barangay" => "required",
         ]);
         $user = new User();

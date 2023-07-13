@@ -57,37 +57,35 @@
                                             <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="">* Password</label>
-                                        <input type="password" name="password" placeholder="Ex. 242@1212!aDmin"
-                                            class="form-control form-control-sm" value="{{ old('password') }}">
-                                        @error('password')
-                                            <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
-                                        @enderror
-                                    </div>
+
                                     <div class="form-group col-md-4">
                                         <label for="">* Role</label>
                                         <select name="role" id="" class="form-control form-control-sm">
                                             <option value="">Select</option>
-                                           
-                                            <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin
-                                            </option>
-                                            <option value="Technician" {{ old('role') == 'Technician' ? 'selected' : '' }}>
-                                                Technician</option>
-                                            <option value="Farmer" {{ old('role') == 'Farmer' ? 'selected' : '' }}>Farmer
-                                            </option>
+
+                                            @switch(Auth::user()->role=="Technician")
+                                                @case(1)
+                                                    <option value="Technician" {{ old('role') == 'Technician' ? 'selected' : '' }}>
+                                                        Technician</option>
+                                                @break
+
+                                                @default
+                                                    <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin
+                                                    </option>
+                                                    <option value="Technician" {{ old('role') == 'Technician' ? 'selected' : '' }}>
+                                                        Technician</option>
+                                                    <option value="Farmer" {{ old('role') == 'Farmer' ? 'selected' : '' }}>Farmer
+                                                    </option>
+                                            @endswitch
+
+
                                         </select>
                                         @error('role')
                                             <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
                                         @enderror
                                     </div>
 
-                                </div>
-
-
-                                <div class="row">
-
-                                    <div class="form-group col-md-5">
+                                    <div class="form-group col-md-4">
                                         <label for="">* Position</label>
                                         <select name="position" class="form-control form-control-sm">
                                             <option value="">Select Position</option>
@@ -102,6 +100,13 @@
                                             <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
                                         @enderror
                                     </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+
                                     <div class="form-group col-md-7">
                                         <label for="">Image (Optional)</label>
                                         <input type="file" name="image" id="image"
@@ -153,53 +158,68 @@
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label for="">* Region</label>
+                                        <input type="hidden" value="{{ Auth::user()->region_assigned }}"
+                                            name="region_assigned" />
                                         <select name="region_assigned" class="form-control form-control-sm"
                                             id="region-list" disabled>
                                             <option value="">Select Region</option>
                                             @foreach ($region as $regionItem)
-                                                <option value="{{ $regionItem->regCode }}" {{ Auth::user()->region_assigned == $regionItem->regCode ? 'selected ' : '' }}>{{ $regionItem->regDesc }}
+                                                <option value="{{ $regionItem->regCode }}"
+                                                    {{ Auth::user()->region_assigned == $regionItem->regCode ? 'selected ' : '' }}>
+                                                    {{ $regionItem->regDesc }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('region_assigned')
-                                            <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
-                                        @enderror
+
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="">* Province</label>
-                                        <select name="province_assigned" class="form-control form-control-sm"
+                                        <input type="hidden" value="{{ Auth::user()->province_assigned }}"
+                                            name="province_assigned" />
+                                        <select name="province_assigned-" class="form-control form-control-sm"
                                             id="province-list" disabled>
                                             @foreach ($province as $provinceItem)
-                                                <option value="{{ $provinceItem->provCode }}" {{ Auth::user()->province_assigned == $provinceItem->provCode ? 'selected ' : '' }}>{{ $provinceItem->provDesc }}
+                                                <option value="{{ $provinceItem->provCode }}"
+                                                    {{ Auth::user()->province_assigned == $provinceItem->provCode ? 'selected ' : '' }}>
+                                                    {{ $provinceItem->provDesc }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('province_assigned')
-                                            <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
-                                        @enderror
+
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="">* City/Municipality</label>
-                                        <select name="city_assigned" class="form-control form-control-sm"
-                                            id="citymun-list"></select>
-                                            @error('city_assigned')
-                                            <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
-                                        @enderror
+
+                                        <input type="hidden" value="{{ Auth::user()->municipality_assigned }}" name="city_assigned" />
+                                        <select name="city_assigned-" class="form-control form-control-sm"
+                                            id="citymun-list" disabled>
+                                            @foreach ($citymun as $city)
+                                                <option value="{{ $city->citymunCode }}"
+                                                    {{ Auth::user()->municipality_assigned == $city->citymunCode ? 'selected ' : '' }}>
+                                                    {{ $city->citymunDesc }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
                                     </div>
 
                                 </div>
 
-
-                                <h6>Below will load the list of barangays</h6>
                                 <div class="row" id="barangay-list">
-
-
-                                    <h5>Barangay List Here!</h5>
-
-
+                                    @foreach ($barangay as $item)
+                                        <div class="form-group col-3">
+                                            <div class="form-check form-switch ml-lg-4">
+                                                <input class="form-check-input" type="checkbox"
+                                                    name="assigned_barangay[]" id="flexSwitchCheckChecked"
+                                                    value='{{ $item->brgyCode }}'
+                                                    {{ is_array(old('assigned_barangay')) && in_array($item->brgyCode, old('assigned_barangay')) ? ' checked' : '' }} />
+                                                <label class="form-check-label" for="flexSwitchCheckChecked">
+                                                    {{ $item->brgyDesc }}</label>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

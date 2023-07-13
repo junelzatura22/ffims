@@ -33,6 +33,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/user/list', [AdminController::class, 'userList'])->name('userlist');
     Route::get('/user/register', [AdminController::class, 'register'])->name('register.user');
     Route::post('/user/register', [AdminController::class, 'store'])->name('store.user');
+    Route::get('/user/list/{id}', [AdminController::class, 'edit'])->name('edit');
     //for the assigned barangay, province, region and municipality
     
     Route::get('/user/getprovince/{regCode}', [RegionProvinceMunBarangay::class, 'getProvince'])->name('getProvince.RegionProvinceMunBarangay');
