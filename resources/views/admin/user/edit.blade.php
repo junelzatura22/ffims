@@ -4,6 +4,7 @@
     {{-- All start with the row  --}}
     <div class="row">
         <div class="col-md-3">
+           
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
@@ -30,7 +31,8 @@
             </div>
         </div>
         <div class="col-md-9">
-            <form action="{{ route('save.user.assignment') }}" method="post">
+                @include('_message')
+            <form action="" method="post">
                 @csrf
                 <div class="row">
                     <div class="card">
@@ -61,7 +63,7 @@
                                 <div class="col-md-4">
                                     <label for="" class="form-label">* Email</label>
                                     <input type="text" name="email" id="" class="form-control form-control-sm"
-                                        placeholder="" aria-describedby="helpId" value="{{ $userData->email }}">
+                                        placeholder="" aria-describedby="helpId" value="{{ $userData->email }}" disabled>
                                     @error('email')
                                         <span><i class="text-red"><strong>{{ $message }}</strong></i></span>
                                     @enderror
@@ -145,8 +147,8 @@
                                 @foreach ($commodityList as $item)
                                     <div class="form-group  col-md-4">
                                         <div class="form-check form-switch ml-lg-4">
-                                            <input class="form-check-input" type="checkbox" name="commodity[]"
-                                                id="flexSwitchCheckChecked" value="{{ $item->com_id }}"
+                                            <input class="form-check-input" type="checkbox" name="assigned_commodity[]"
+                                                id="flexSwitchCheckChecked" value="{{ $item->com_name }}"
                                                 {{ in_array($item->com_name, $dataArray) ? 'checked' : '' }}>
                                             <label class="form-check-label"
                                                 for="flexSwitchCheckChecked">{{ $item->com_name }}</label>

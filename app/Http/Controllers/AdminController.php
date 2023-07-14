@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Barangay;
 use App\Models\City;
 use App\Models\Commodity;
-use App\Models\Designation;
 use App\Models\Position;
 use App\Models\Province;
 use App\Models\Region;
@@ -13,8 +12,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Image;
 use Illuminate\Support\Str;
+use Image;
 
 class AdminController extends Controller
 {
@@ -26,10 +25,9 @@ class AdminController extends Controller
         return view('admin.user.list', compact('areaIdentifier', 'allUsers'));
     }
 
+    public function edit(Request $request)
+    {
 
-    public function edit(Request $request){
-
-       
         $userData = User::find($request->id);
         $commodityList = Commodity::commodityList(); //did not used
         $position = Position::showPosition();
@@ -37,7 +35,7 @@ class AdminController extends Controller
         $p_desc = User::getPosition($request->id);
         if (!empty($userData)) {
             $areaIdentifier = "User Management | User Profile";
-            return view('admin.user.edit', compact('areaIdentifier','userData','commodityList','position','barangay','p_desc'));
+            return view('admin.user.edit', compact('areaIdentifier', 'userData', 'commodityList', 'position', 'barangay', 'p_desc'));
         } else {
             $areaIdentifier = "INVALID DATA SEARCHING";
             return view('layouts.abort', compact('areaIdentifier'));
@@ -46,8 +44,6 @@ class AdminController extends Controller
 
     public function register()
     {
-
-      
         $province = Province::showRegion();
         $region = Region::showRegion();
         $position = Position::showPosition();
@@ -56,15 +52,12 @@ class AdminController extends Controller
         $commodityList = Commodity::commodityList(); //did not used
         $areaIdentifier = "User Management | Register";
         return view('admin.user.register', compact('areaIdentifier', 'commodityList',
-         'position', 'region','province','citymun','barangay'));
+            'position', 'region', 'province', 'citymun', 'barangay'));
     }
-
-
 
     public function store(Request $request)
     {
 
-     
 //      remove functions
 //     "password" => "required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|:min:9",
 
@@ -73,14 +66,13 @@ class AdminController extends Controller
             "lastname" => "required|regex:/^[a-zA-Z ]*$/",
             "email" => "required|email|unique:users",
             "contact" => "required|max:11|min:11",
-        
+
             "role" => "required",
             "position" => "required",
             "assigned_commodity" => "required",
             "assigned_barangay" => "required",
         ]);
         $user = new User();
-
 
         $filename = "";
 
@@ -107,8 +99,8 @@ class AdminController extends Controller
         $user->lastname = $lastname;
         $user->email = $email;
         $user->role = $role;
-        $user->password = Hash::make('Pa$$w0rd!');//default
-        $user->created_by =  $createdBy;
+        $user->password = Hash::make('Pa$$w0rd!'); //default
+        $user->created_by = $createdBy;
         $user->contact = $contact;
         $user->position = $request->position;
         $user->assigned_commodity = json_encode($request->assigned_commodity);
@@ -118,5 +110,40 @@ class AdminController extends Controller
         $user->assigned_barangay = json_encode($request->assigned_barangay);
         $user->save();
         return redirect('admin/user/list')->with('success', $name . ' was successfully added!');
+    }
+
+    public function update(Request $request, $id)
+    {
+//      remove functions
+//     "password" => "required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|:min:9",
+
+        $request->validate([
+            "name" => "required|regex:/^[a-zA-Z ]*$/",
+            "lastname" => "required|regex:/^[a-zA-Z ]*$/",
+            "contact" => "required|max:11|min:11",
+            "role" => "required",
+            "position" => "required",
+            "assigned_commodity" => "required",
+            "assigned_barangay" => "required",
+        ]);
+
+        $user = User::find($id);
+        $createdBy = Auth::user()->id;
+        $name = strtoupper(trim($request->name));
+        $lastname = strtoupper(trim($request->lastname));
+        $role = $request->role;
+        $contact = $request->contact;
+        //
+        $user->name = $name;
+        $user->lastname = $lastname;
+        $user->role = $role;
+        $user->created_by = $createdBy;
+        $user->contact = $contact;
+        $user->position = $request->position;
+        $user->assigned_commodity = json_encode($request->assigned_commodity);
+        $user->assigned_barangay = json_encode($request->assigned_barangay);
+        $user->id = $id;
+        $user->touch();
+        return redirect('admin/user/list/'.$id)->with('success', $name . '  Successfully updated!');
     }
 }
