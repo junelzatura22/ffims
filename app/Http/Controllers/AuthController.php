@@ -34,9 +34,17 @@ class AuthController extends Controller
 
         $credentials = ['email' => $request->email, 'password' => $request->password];
         $remember_token = $request->remembertoken;
-
+        
         if (Auth::attempt($credentials, $remember_token)) {
-            return redirect('admin/dashboard');
+           
+            if (Auth::user()->role == "Admin") {
+                return redirect('admin/dashboard');
+            } else if (Auth::user()->role == "Technician") {
+                return redirect('technician/dashboard');
+            } else {
+                return redirect('farmer/dashboard');
+            }
+           
         } else {
             return redirect('/')->with('error', 'Invalid Username/Password!');
         }

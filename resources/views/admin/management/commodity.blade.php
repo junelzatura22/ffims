@@ -82,7 +82,7 @@
                         <h5 class="modal-title" id="staticBackdropLabel">Commodity</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action={{ url('admin/management/commodity') }} method="post" id="addCommodityForm">
+                    <form action={{ route('store.commodity') }} method="post" id="addCommodityForm">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -111,7 +111,7 @@
                         <h5 class="modal-title" id="staticBackdropLabel">Update Commodity</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action={{ url('admin/management/commodity') }} method="post" id="editCommodityForm">
+                    <form action="{{ route('edit.commodity') }}" method="post" id="editCommodityForm">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
@@ -141,7 +141,7 @@
                         <h5 class="modal-title" id="staticBackdropLabel">Delete Commodity</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action={{ url('admin/management/delete') }} method="post" >
+                    <form action={{ route('delete.commodity') }} method="post" >
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">

@@ -23,7 +23,7 @@
                         <!-- Widget: user widget style 1 -->
                         <div class="card card-widget widget-user shadow">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-primary bg-gradient-green">
+                            <div class="widget-user-header bg-primary {{ $item->status == "0" ? "bg-gradient-green" : "bg-gradient-red"}}">
                                 <h3 class="widget-user-username">{{ $item->name }} {{ $item->lastname }}</h3>
                                 <h5 class="widget-user-desc">Technician</h5>
                             </div>
@@ -56,19 +56,16 @@
                                 <!-- /.row -->
                                 <div class="row">
                                     <!-- /.col -->
-                                    <div class="d-flex gap-1">
+                                    <div class="d-flex gap-2">
                                         <div class="description-block">
                                             <a href="{{ url('admin/user/list/' . $item->id) }}"><i
                                                     class="fa-solid fa-pen-to-square btn btn-warning shadow"></i></a>
                                         </div>
+                                 
                                         <div class="description-block">
-                                            <a href=""> <i
-                                                    class="fa-solid fa-trash size-64 btn btn-danger shadow"></i></a>
-                                        </div>
-                                        <div class="description-block">
-                                            <a href="{{ url('admin/user/assignment/' . $item->id) }}"
+                                            <a href="{{ url('admin/user/status/' . $item->id) }}"
                                                 class="btn btn-success">
-                                                <i class="fa-solid fa-clipboard-question shadow"></i> Assignment</a>
+                                                <i class="fa-solid fa-clipboard-question shadow"></i>&nbsp;Status</a>
                                         </div>
 
                                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommodityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\FarmerFisherfolk;
 use App\Http\Controllers\FarmingActivity;
 use App\Http\Controllers\FarmingActivityController;
 use App\Http\Controllers\PositionController;
@@ -35,8 +36,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('/user/register', [AdminController::class, 'store'])->name('store.user');
     Route::get('/user/list/{id}', [AdminController::class, 'edit'])->name('edit.user');
     Route::post('/user/list/{id}', [AdminController::class, 'update'])->name('updateUser');
+    Route::get('/user/status/{id}', [AdminController::class, 'getStatus'])->name('status.user');
+    Route::post('/user/status/{id}', [AdminController::class, 'updateStatus'])->name('updatestatus.user');
     //for the assigned barangay, province, region and municipality
-    
+
     Route::get('/user/getprovince/{regCode}', [RegionProvinceMunBarangay::class, 'getProvince'])->name('getProvince.RegionProvinceMunBarangay');
     Route::get('/user/getcityMun/{provCode}', [RegionProvinceMunBarangay::class, 'getCityMun'])->name('getCityMun.RegionProvinceMunBarangay');
     Route::get('/user/getBarangay/{citymunCode}', [RegionProvinceMunBarangay::class, 'getBarangay'])->name('getBarangay.RegionProvinceMunBarangay');
@@ -57,14 +60,18 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('/management/delete/', [DesignationController::class, 'delete'])->name('delete.designation');
     // Commodity
     Route::get('/management/commodity', [CommodityController::class, 'index'])->name('index.commodity');
-    Route::post('/management/commodity', [CommodityController::class, 'store'])->name('store.commodity');
-    Route::post('/management/edit', [CommodityController::class, 'edit'])->name('edit.commodity');
-    Route::post('/management/delete', [CommodityController::class, 'delete'])->name('delete.commodity');
+    Route::post('/management/storecom', [CommodityController::class, 'store'])->name('store.commodity');
+    Route::post('/management/editcom', [CommodityController::class, 'edit'])->name('edit.commodity');
+    Route::post('/management/deletecom', [CommodityController::class, 'delete'])->name('delete.commodity');
     //Farm Commodity
     Route::get('/management/farmactivity', [FarmingActivityController::class, 'index'])->name('index.farmactivity');
     Route::post('/management/farmactivity', [FarmingActivityController::class, 'store'])->name('store.farmactivity');
     Route::post('/management/edit', [FarmingActivityController::class, 'edit'])->name('edit.farmactivity');
     Route::post('/management/delete', [FarmingActivityController::class, 'delete'])->name('delete.farmactivity');
+    //Farmer and fisherfolk
+    Route::get('/f2/faf',[FarmerFisherfolk::class,'index'])->name('f2.list');
+    Route::get('/f2/register',[FarmerFisherfolk::class,'register'])->name('f2.register');
+    Route::post('/f2/register',[FarmerFisherfolk::class,'save'])->name('f2.save');
 });
 
 Route::group(['middleware' => 'technician'], function () {

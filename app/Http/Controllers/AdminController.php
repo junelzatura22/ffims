@@ -42,6 +42,23 @@ class AdminController extends Controller
         }
     }
 
+    public function getStatus(Request $request)
+    {
+
+        $userData = User::find($request->id);
+        $commodityList = Commodity::commodityList(); //did not used
+        $position = Position::showPosition();
+        $barangay = Barangay::showBarangays(Auth::user()->municipality_assigned);
+        $p_desc = User::getPosition($request->id);
+        if (!empty($userData)) {
+            $areaIdentifier = "User Management | Active or Inactive user status";
+            return view('admin.user.status', compact('areaIdentifier', 'userData', 'commodityList', 'position', 'barangay', 'p_desc'));
+        } else {
+            $areaIdentifier = "INVALID DATA SEARCHING";
+            return view('layouts.abort', compact('areaIdentifier'));
+        }
+    }
+
     public function register()
     {
         $province = Province::showRegion();
@@ -145,5 +162,15 @@ class AdminController extends Controller
         $user->id = $id;
         $user->touch();
         return redirect('admin/user/list/'.$id)->with('success', $name . '  Successfully updated!');
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            "status" => "required", 
+        ]);
+        $user = User::find($id);
+        $user->status = $request->status;
+        $user->touch();
+        return redirect('admin/user/list')->with('success', 'Successfully changed status!');
     }
 }

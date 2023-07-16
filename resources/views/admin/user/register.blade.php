@@ -60,7 +60,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label for="">* Role</label>
-                                        <select name="role" id="" class="form-control form-control-sm">
+                                        <select name="role" id="" class="form-select form-select-sm">
                                             <option value="">Select</option>
 
                                             @switch(Auth::user()->role=="Technician")
@@ -87,7 +87,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label for="">* Position</label>
-                                        <select name="position" class="form-control form-control-sm">
+                                        <select name="position" class="form-select form-select-sm">
                                             <option value="">Select Position</option>
                                             @foreach ($position as $positionItem)
                                                 <option value="{{ $positionItem->p_id }}"
@@ -107,15 +107,12 @@
                                 <div class="row">
 
 
-                                    <div class="form-group col-md-7">
+                                    <div class="form-group">
                                         <label for="">Image (Optional)</label>
                                         <input type="file" name="image" id="image"
                                             class="form-control form-control-sm">
                                     </div>
-                                    <div class="form-group col-md-1">
-                                        <label for="" class="text-white">Commodity/Program</label>
-
-                                    </div>
+                                   
                                 </div>
 
                             </div>
@@ -160,7 +157,7 @@
                                         <label for="">* Region</label>
                                         <input type="hidden" value="{{ Auth::user()->region_assigned }}"
                                             name="region_assigned" />
-                                        <select name="region_assigned" class="form-control form-control-sm"
+                                        <select name="region_assigned" class="form-select form-select-sm"
                                             id="region-list" disabled>
                                             <option value="">Select Region</option>
                                             @foreach ($region as $regionItem)
@@ -176,7 +173,7 @@
                                         <label for="">* Province</label>
                                         <input type="hidden" value="{{ Auth::user()->province_assigned }}"
                                             name="province_assigned" />
-                                        <select name="province_assigned-" class="form-control form-control-sm"
+                                        <select name="province_assigned-" class="form-select form-select-sm"
                                             id="province-list" disabled>
                                             @foreach ($province as $provinceItem)
                                                 <option value="{{ $provinceItem->provCode }}"
@@ -191,7 +188,7 @@
                                         <label for="">* City/Municipality</label>
 
                                         <input type="hidden" value="{{ Auth::user()->municipality_assigned }}" name="city_assigned" />
-                                        <select name="city_assigned-" class="form-control form-control-sm"
+                                        <select name="city_assigned-" class="form-select form-select-sm"
                                             id="citymun-list" disabled>
                                             @foreach ($citymun as $city)
                                                 <option value="{{ $city->citymunCode }}"
