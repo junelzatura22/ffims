@@ -1,7 +1,16 @@
 $(document).ready(function () {
-    $("#success-alert").delay(2000).fadeIn("slow", function () {
-        $("#success-alert").fadeOut(1500);
+    var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+
+    $("#success-alert")
+        .delay(2000)
+        .fadeIn("slow", function () {
+            $("#success-alert").fadeOut(1500);
+        });
     // validation for farmer
     $("#registerFarmer").validate({
         rules: {

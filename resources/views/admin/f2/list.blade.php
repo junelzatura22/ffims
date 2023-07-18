@@ -47,25 +47,7 @@
                                                         <span class="float-right badge text-md  bg-info">0</span>
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link text-md">
-                                                        {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
-                                                        {{ $fdata->lname }}'s&nbsp;Fishery Activity
-                                                        <span class="float-right badge text-md  bg-info">0</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        Insurance Application <span
-                                                            class="float-right badge 
-                                                    text-md bg-success">0</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        Production <span class="float-right badge  text-md bg-danger">0</span>
-                                                    </a>
-                                                </li>
+                                              
                                             @break
 
                                             @case('Farmer')
@@ -76,18 +58,7 @@
                                                         <span class="float-right badge text-md  bg-info">0</span>
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        Insurance Application <span
-                                                            class="float-right badge 
-                                                    text-md bg-success">0</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        Production <span class="float-right badge  text-md bg-danger">0</span>
-                                                    </a>
-                                                </li>
+                                               
                                             @break
 
                                             @default
@@ -98,18 +69,7 @@
                                                         <span class="float-right badge text-md  bg-info">0</span>
                                                     </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        FishR <span
-                                                            class="float-right badge 
-                                                    text-md bg-success">0</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link  text-md">
-                                                        BoatR <span class="float-right badge  text-md bg-danger">0</span>
-                                                    </a>
-                                                </li>
+                                               
                                         @endswitch
 
 
@@ -121,13 +81,22 @@
 
                                     <div class="col d-flex gap-2">
                                         <div class="description-block">
-                                            <a href="{{ url('admin/user/list/') }}"><i
-                                                    class="fa-solid fa-pen-to-square btn btn-warning shadow"></i></a>
+                                            <a href="{{ route('f2.getdata',['id'=>$fdata->farmer_id]) }}" class="btn btn-warning" data-bs-toggle="tooltip" 
+                                                data-bs-placement="bottom" title="Edit Data"><i
+                                                    class="fa-solid fa-pen-to-square  shadow"></i></a>
                                         </div>
 
                                         <div class="description-block">
-                                            <a href="{{ url('admin/user/status/') }}" class="btn btn-success">
-                                                <i class="fa-solid fa-clipboard-question shadow"></i>&nbsp;Status</a>
+                                            <a href="{{ url('admin/user/status/') }}" class="btn btn-success" data-bs-toggle="tooltip" 
+                                            data-bs-placement="bottom" title="Change Status">
+                                                <i class="fa-solid fa-clipboard-question shadow" 
+                                                ></i>&nbsp;</a>
+                                        </div>
+
+                                        <div class="description-block">
+                                            <a href="{{ url('admin/user/status/') }}" class="btn btn-primary" data-bs-toggle="tooltip" 
+                                            data-bs-placement="bottom" title="Add More Information">
+                                                <i class="fa-solid fa-circle-info shadow"></i>&nbsp;Details</a>
                                         </div>
                                     </div>
 

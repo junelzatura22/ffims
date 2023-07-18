@@ -37,18 +37,44 @@
     {{-- <select name="designationTable_length" aria-controls="designationTable" class="custom-select custom-select-sm form-control form-control-sm">
         <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> --}}
     <style>
-        .main-sidebar {
-
-            /* background-color: #0f5328 !important */
+        .tooltip-inner {
+            background-color: #0f5328;
+            box-shadow: 0px 0px 4px black;
+            opacity: 1 !important;
         }
 
+        .tooltip.bs-tooltip-right .tooltip-arrow::before {
+            border-right-color: #0f5328 !important;
+        }
 
-        .form-check-label, .form-check-input {
+        .tooltip.bs-tooltip-left .tooltip-arrow::before {
+            border-left-color: #0f5328 !important;
+        }
+
+        .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+            border-bottom-color: #0f5328 !important;
+        }
+
+        .tooltip.bs-tooltip-top .tooltip-arrow::before {
+            border-top-color: #0f5328 !important;
+        }
+
+        .main-sidebar {
+
+            background-image: linear-gradient(to top, #1a1a1f, #191a30, 
+            #171a42, #121953, #0c1764)
+             !important
+        }
+
+        
+
+        .form-check-label,
+        .form-check-input {
             font-size: 1rem;
 
         }
 
-     
+
 
         .error {
             font-size: 0.8rem;

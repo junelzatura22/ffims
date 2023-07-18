@@ -17,4 +17,11 @@ class Province extends Model
        return self::select('refprovince.*')
        ->orderby('provDesc', 'asc')->get();
     }
+
+    public static function showProvince($regionCode)
+    {
+       return self::select('refprovince.*')
+       ->where('regCode','=',$regionCode)
+       ->orderby('provDesc', 'asc')->get();
+    }
 }

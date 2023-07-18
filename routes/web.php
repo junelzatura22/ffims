@@ -72,6 +72,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/f2/faf',[FarmerFisherfolk::class,'index'])->name('f2.list');
     Route::get('/f2/register',[FarmerFisherfolk::class,'register'])->name('f2.register');
     Route::post('/f2/register',[FarmerFisherfolk::class,'save'])->name('f2.save');
+    Route::get('/f2/mod/{id}',[FarmerFisherfolk::class,'getdatatoedit'])->name('f2.getdata');
 });
 
 Route::group(['middleware' => 'technician'], function () {

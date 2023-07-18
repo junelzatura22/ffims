@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barangay;
+use App\Models\City;
 use App\Models\Farmer;
+use App\Models\Province;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +26,18 @@ class FarmerFisherfolk extends Controller
         $region = Region::showRegion();
         $areaIdentifier = "Farmer and Fisherfolk | Register";
         return view('admin.f2.register', compact('areaIdentifier', 'region'));
+    }
+    public function getdatatoedit($id)
+    {
+        $f2data = Farmer::find($id);
+        $region = Region::showRegion();
+
+        $barangay = Barangay::showBarangays($f2data->c_citymun);
+        $citymun = City::showCityMun($f2data->c_province);
+        $province = Province::showProvince($f2data->c_region);
+
+        $areaIdentifier = "Farmer and Fisherfolk | Update | Add Other Details";
+        return view('admin.f2.editf2data', compact('areaIdentifier', 'region','f2data','province','citymun','barangay'));
     }
 
     public function save(Request $request)
