@@ -55,7 +55,7 @@
                             <label for="fname" class="col-form-label">Ext. Name</label>
 
                             <select name="extname" id="" class="form-select form-select-sm">
-                                <option value="">[Select]</option>
+                                <option value="[Select]">[Select]</option>
                                 <option value="JR" {{ old('extname') == "JR" ? "selected" : ""}}>JR</option>
                                 <option value="SR" {{ old('extname') == "SR" ? "selected" : ""}}>SR</option>
                                 <option value="I" {{ old('extname') == "I" ? "selected" : ""}}>I</option>

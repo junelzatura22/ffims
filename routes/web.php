@@ -73,6 +73,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/f2/register',[FarmerFisherfolk::class,'register'])->name('f2.register');
     Route::post('/f2/register',[FarmerFisherfolk::class,'save'])->name('f2.save');
     Route::get('/f2/mod/{id}',[FarmerFisherfolk::class,'getdatatoedit'])->name('f2.getdata');
+    Route::post('/f2/mod/{id}',[FarmerFisherfolk::class,'updatefarmer'])->name('f2.update');
+    Route::get('/f2/activity/{id}',[FarmerFisherfolk::class,'activity'])->name('f2.activity');
+    //Add Farmer
+    Route::get('/f2/farm/{id}',[FarmerFisherfolk::class,'addfarm'])->name('f2.addfarm');
 });
 
 Route::group(['middleware' => 'technician'], function () {

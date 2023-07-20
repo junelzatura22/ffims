@@ -11,6 +11,16 @@ $(document).ready(function () {
         .fadeIn("slow", function () {
             $("#success-alert").fadeOut(1500);
         });
+    $("#error-alert")
+        .delay(2000)
+        .fadeIn("slow", function () {
+            $("#error-alert").fadeOut(1500);
+        });
+    $("#update-alert")
+        .delay(2000)
+        .fadeIn("slow", function () {
+            $("#update-alert").fadeOut(1500);
+        });
     // validation for farmer
     $("#registerFarmer").validate({
         rules: {
@@ -70,15 +80,92 @@ $(document).ready(function () {
             p_barangay: "Barangay is empty",
         },
     });
+    $("#editFarmer").validate({
+        rules: {
+            reg_type: {
+                required: true,
+            },
+            fishr_nat: "required",
+            fishr_loc: "required",
+            rsbsa_nat: "required",
+            rsbsa_loc: "required",
+            fname: "required",
+            lname: "required",
+            dob: "required",
+            pob: "required",
+            gender: "required",
+            cstatus: "required",
+            contactno: {
+                required: true,
+                minlength: 10,
+                maxlength: 11,
+            },
+            c_purok: "required",
+            c_street: "required",
+            c_region: "required",
+            c_province: "required",
+            c_citymun: "required",
+            c_barangay: "required",
+            p_purok: "required",
+            p_street: "required",
+            p_region: "required",
+            p_province: "required",
+            p_citymun: "required",
+            p_barangay: "required",
+        },
+        messages: {
+            fishr_nat: "This field is required!",
+            fishr_loc: "This field is required!",
+            rsbsa_nat: "This field is required!",
+            rsbsa_loc: "This field is required!",
+            reg_type: {
+                required: "Select Category",
+            },
+            fname: "Firstname is empty",
+            lname: "Lastname is empty",
+            dob: "Date of Birth is empty",
+            pob: "Place of Birth is empty",
+            gender: "Select Gender",
+            cstatus: "Select Civil Status",
+            contactno: {
+                required: "No contact no.",
+                minlength: "Minimum of 10",
+                maxlength: "Maximum of 11",
+            },
+            c_purok: "This field is empty",
+            c_street: "This field is empty",
+            c_region: "Region is empty",
+            c_province: "Province is empty",
+            c_citymun: "City/Municipality is empty",
+            c_barangay: "Barangay is empty",
+            p_purok: "This field is empty",
+            p_street: "This field is empty",
+            p_region: "Region is empty",
+            p_province: "Province is empty",
+            p_citymun: "City/Municipality is empty",
+            p_barangay: "Barangay is empty",
+        },
+    });
 
-    $("#registerFarmer #fname").bind(
+    $(
+        "#registerFarmer #fname,#registerFarmer #lname,#registerFarmer #mname"
+    ).bind(
         "keyup blur",
         function () {
             var node = $(this);
             node.val(node.val().replace(/[^A-Za-z_\s]/, ""));
         } // (/[^a-z]/g,''
     );
-    $("#registerFarmer #lname").bind(
+    $("#editFarmer #rsbsa_nat,#editFarmer #rsbsa_loc,#editFarmer #fishr_nat,#editFarmer #fishr_loc").keypress(function(e){  
+        var txt = String.fromCharCode(e.which)
+        var pattern = /^[0-9\-]+$/;
+        if (!(pattern.test(txt) || e.keyCode == 8)){
+                return false;
+        }
+    });
+
+
+    $("#editFarmer #fname,#editFarmer #lname,#editFarmer #mname").bind(
         "keyup blur",
         function () {
             var node = $(this);

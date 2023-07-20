@@ -3,7 +3,8 @@
 @section('content-details')
     {{-- All start with the row  --}}
     <div class="row">
-        <form action="" method="post" enctype="multipart/form-data" id="editFarmer">
+        @include('_message')
+        <form action="{{ route('f2.update',['id'=>$f2data->farmer_id]) }}" method="post" enctype="multipart/form-data" id="editFarmer">
             @csrf
 
             <div class="card shadow-sm">
@@ -11,6 +12,46 @@
                     <h5><i class="fa-solid fa-magnifying-glass-location"></i>&nbsp;Update Personal Information </h5>
                 </div>
                 <div class="card-body">
+                    <div class="row mb-2 pb-2 rounded-lg bg-gradient-green">
+                        <div class="col-md-3">
+                            <label for="fishr_nat" class="col-form-label">FishR National</label>
+                            <input type="text" id="fishr_nat" class="form-control form-control-sm"
+                                placeholder="" name="fishr_nat" value="{{ $f2data->fishr_nat  }}" 
+                                {{ $f2data->reg_type == 'Fisherfolk' || $f2data->reg_type == 'All' ? '' : 'readonly'}} />
+                            @error('fishr_nat')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label for="fishr_loc" class="col-form-label">FishR Local</label>
+                            <input type="text" id="fishr_loc" class="form-control form-control-sm"
+                                placeholder="" name="fishr_loc" value="{{ $f2data->fishr_loc }}" 
+                                {{ $f2data->reg_type == 'Fisherfolk' || $f2data->reg_type == 'All' ? '' : 'readonly'}} />
+                            @error('fishr_loc')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label for="rsbsa_nat" class="col-form-label">RSBSA National</label>
+                            <input type="text" id="rsbsa_nat" class="form-control form-control-sm"
+                                placeholder="" name="rsbsa_nat" value="{{ $f2data->rsbsa_nat }}" 
+                                {{ $f2data->reg_type == 'Farmer' || $f2data->reg_type == 'All' ? '' : 'readonly'}} />
+                            @error('rsbsa_nat')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label for="rsbsa_loc" class="col-form-label">RSBSA Local</label>
+                            <input type="text" id="rsbsa_loc" class="form-control form-control-sm"
+                                placeholder="" name="rsbsa_loc" value="{{ $f2data->rsbsa_loc }}" 
+                                {{ $f2data->reg_type == 'Farmer' || $f2data->reg_type == 'All' ? '' : 'readonly'}}/>
+                            @error('rsbsa_loc')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                    </div>
+
+
                     <div class="row mb-2">
                         <div class="col-md-2">
                             <label for="fname" class="col-form-label">*&nbsp;Category</label>
@@ -52,7 +93,7 @@
                             <label for="fname" class="col-form-label">Ext. Name</label>
 
                             <select name="extname" id="" class="form-select form-select-sm">
-                                <option value="">[Select]</option>
+                                <option value="[Select]">[Select]</option>
                                 <option value="JR" {{ $f2data->extname == 'JR' ? 'selected' : '' }}>JR</option>
                                 <option value="SR" {{ $f2data->extname == 'SR' ? 'selected' : '' }}>SR</option>
                                 <option value="I" {{ $f2data->extname == 'I' ? 'selected' : '' }}>I</option>
@@ -152,6 +193,7 @@
                             @endif
                         </div>
                         <div class="col-md-6">
+                            <input type="hidden" name="oldPhoto" value="{{$f2data->picture}}" />
                             <label for="picture" class="col-form-label">Upload Image</label>
                             <input type="file" id="picture" class="form-control form-control-sm" placeholder=""
                                 name="picture" accept="image/*" />
@@ -248,6 +290,106 @@
 
             </div>
             {{-- End of permanent address card  --}}
+
+            {{-- Start of temporary address card  --}}
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5><i class="fa-solid fa-address-card"></i>&nbsp;Update Permanent Address </h5>
+
+                </div>
+
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="p_purok" class="col-form-label">*&nbsp;House/Lot/Bldg. No/Purok</label>
+                            <input type="text" id="p_purok" class="form-control form-control-sm"
+                                placeholder="Ex. Purok Mauswagon" name="p_purok" value="{{ $f2data->p_purok }}" />
+                            @error('p_purok')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="p_street" class="col-form-label">*&nbsp;Stree/Sitio/Subdv.</label>
+                            <input type="text" id="p_street" class="form-control form-control-sm"
+                                placeholder="Ex. Rizal St." name="p_street" value={{ $f2data->p_street }} />
+                            @error('p_street')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="p_region" class="col-form-label">*&nbsp;Region</label>
+                            <select name="p_region" id="p_region" class="form-select form-select-sm">
+                                <option value="">[Select Region]</option>
+                                @foreach ($region as $regionData)
+                                    <option value="{{ $regionData->regCode }}"
+                                        {{ $f2data->p_region == $regionData->regCode ? 'selected' : '' }}>
+                                        {{ $regionData->regDesc }}</option>
+                                @endforeach
+                            </select>
+                            @error('p_region')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <label for="p_province" class="col-form-label">*&nbsp;Province</label>
+                            <select name="p_province" id="p_province" class="form-select form-select-sm">
+                                <option value="">[Select Province]</option>
+
+                                @foreach ($province as $provinceData)
+                                    <option value="{{ $provinceData->provCode }}"
+                                        {{ $f2data->p_province == $provinceData->provCode ? 'selected' : '' }}>
+                                        {{ $provinceData->provDesc }}</option>
+                                @endforeach
+                            </select>
+                            @error('p_province')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label for="p_citymun" class="col-form-label">*&nbsp;City/Municipality</label>
+                            <select name="p_citymun" id="p_citymun" class="form-select form-select-sm">
+                                <option value="">[Select City]</option>
+                                @foreach ($citymun as $citymunData)
+                                    <option value="{{ $citymunData->citymunCode }}"
+                                        {{ $f2data->p_citymun == $citymunData->citymunCode ? 'selected' : '' }}>
+                                        {{ $citymunData->citymunDesc }}</option>
+                                @endforeach
+                            </select>
+                            @error('p_citymun')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                        <div class="col-md-3">
+                            <label for="p_barangay" class="col-form-label">*&nbsp;Barangay</label>
+                            <select name="p_barangay" id="p_barangay" class="form-select form-select-sm">
+                                <option value="">[Select Barangay]</option>
+                                @foreach ($barangay as $barangayData)
+                                    <option value="{{ $barangayData->brgyCode }}"
+                                        {{ $f2data->p_barangay == $barangayData->brgyCode ? 'selected' : '' }}>
+                                        {{ $barangayData->brgyDesc }}</option>
+                                @endforeach
+                            </select>
+                            @error('p_barangay')
+                                <i class="text-red"><strong>{{ $message }}</strong></i>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- End of temporary address card  --}}
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="submit" id="save" class="btn bg-warning float-right" value="Update Farmer Data"
+                        name="submit" />
+                </div>
+            </div>
+
         </form>
     </div>
 @endsection

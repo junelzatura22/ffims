@@ -41,7 +41,7 @@
                                         @switch($fdata->reg_type)
                                             @case('All')
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link text-md">
+                                                    <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
                                                         {{ $fdata->lname }}'s&nbsp;Farming Activity
                                                         <span class="float-right badge text-md  bg-info">0</span>
@@ -52,7 +52,7 @@
 
                                             @case('Farmer')
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link text-md">
+                                                    <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
                                                         {{ $fdata->lname }}'s&nbsp;Farming Activity
                                                         <span class="float-right badge text-md  bg-info">0</span>
@@ -63,9 +63,9 @@
 
                                             @default
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link text-md">
+                                                    <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
-                                                        {{ $fdata->lname }}'s&nbsp;Fishery Activity
+                                                        {{ $fdata->lname }}'s&nbsp;Farming Activity
                                                         <span class="float-right badge text-md  bg-info">0</span>
                                                     </a>
                                                 </li>
