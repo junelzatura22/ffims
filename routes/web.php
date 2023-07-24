@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommodityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\FarmAreaController;
 use App\Http\Controllers\FarmerFisherfolk;
 use App\Http\Controllers\FarmingActivity;
 use App\Http\Controllers\FarmingActivityController;
@@ -74,9 +75,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('/f2/register',[FarmerFisherfolk::class,'save'])->name('f2.save');
     Route::get('/f2/mod/{id}',[FarmerFisherfolk::class,'getdatatoedit'])->name('f2.getdata');
     Route::post('/f2/mod/{id}',[FarmerFisherfolk::class,'updatefarmer'])->name('f2.update');
-    Route::get('/f2/activity/{id}',[FarmerFisherfolk::class,'activity'])->name('f2.activity');
     //Add Farmer
-    Route::get('/f2/farm/{id}',[FarmerFisherfolk::class,'addfarm'])->name('f2.addfarm');
+    Route::get('/f2/activity/{id}',[FarmAreaController::class,'activity'])->name('f2.activity');
+    Route::get('/f2/farm/{id}',[FarmAreaController::class,'addfarm'])->name('f2.addfarm');
+    Route::post('/f2/farm/{id}',[FarmAreaController::class,'store'])->name('f2.storefarm');
 });
 
 Route::group(['middleware' => 'technician'], function () {

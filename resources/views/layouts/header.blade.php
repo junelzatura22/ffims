@@ -36,7 +36,14 @@
     <link rel="stylesheet" href={{ asset('plugins/summernote/summernote-bs4.min.css') }}>
     {{-- <select name="designationTable_length" aria-controls="designationTable" class="custom-select custom-select-sm form-control form-control-sm">
         <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> --}}
-    <style>
+        {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/> 
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script> --}}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+   
+   <style>
         .tooltip-inner {
             background-color: #0f5328;
             box-shadow: 0px 0px 4px black;

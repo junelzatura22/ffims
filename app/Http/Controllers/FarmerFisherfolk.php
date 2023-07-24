@@ -44,30 +44,7 @@ class FarmerFisherfolk extends Controller
             return view('layouts.abort', compact('areaIdentifier'));
         }
     }
-    public function activity($id)
-    {
-        $f2data = Farmer::find($id);
-        if (!empty($f2data)) {
 
-            $areaIdentifier = "Farmer | Farming Activity";
-            return view('admin.f2.activity', compact('areaIdentifier',  'f2data'));
-        } else {
-            $areaIdentifier = "INVALID DATA SEARCHING";
-            return view('layouts.abort', compact('areaIdentifier'));
-        }
-    }
-    public function addfarm($id)
-    {
-        $f2data = Farmer::find($id);
-        if (!empty($f2data)) {
-            $region = Region::showRegion();
-            $areaIdentifier = "Register Area to ".$f2data->fname." ".$f2data->lname;
-            return view('admin.f2.addarea', compact('areaIdentifier',  'f2data','region'));
-        } else {
-            $areaIdentifier = "INVALID DATA SEARCHING";
-            return view('layouts.abort', compact('areaIdentifier'));
-        }
-    }
 
     public function save(Request $request)
     {

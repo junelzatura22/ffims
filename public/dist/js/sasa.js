@@ -156,14 +156,15 @@ $(document).ready(function () {
             node.val(node.val().replace(/[^A-Za-z_\s]/, ""));
         } // (/[^a-z]/g,''
     );
-    $("#editFarmer #rsbsa_nat,#editFarmer #rsbsa_loc,#editFarmer #fishr_nat,#editFarmer #fishr_loc").keypress(function(e){  
-        var txt = String.fromCharCode(e.which)
+    $(
+        "#editFarmer #rsbsa_nat,#editFarmer #rsbsa_loc,#editFarmer #fishr_nat,#editFarmer #fishr_loc"
+    ).keypress(function (e) {
+        var txt = String.fromCharCode(e.which);
         var pattern = /^[0-9\-]+$/;
-        if (!(pattern.test(txt) || e.keyCode == 8)){
-                return false;
+        if (!(pattern.test(txt) || e.keyCode == 8)) {
+            return false;
         }
     });
-
 
     $("#editFarmer #fname,#editFarmer #lname,#editFarmer #mname").bind(
         "keyup blur",
@@ -172,6 +173,52 @@ $(document).ready(function () {
             node.val(node.val().replace(/[^A-Za-z_\s]/, ""));
         } // (/[^a-z]/g,''
     );
+
+    //VALIDATION
+    //VALIDATION
+
+    $("#addFarmArea").validate({
+        rules: {
+            c_region: "required",
+            c_province: "required",
+            c_citymun: "required",
+            c_barangay: "required",
+            c_purok: "required",
+            parcel: "required",
+            farmsize: "required",
+            ownership: "required",
+            ownership: "required",
+            nameofowner: "required",
+        },
+        messages: {
+            c_region: "This field is required!",
+            c_province: "This field is required!",
+            c_citymun: "This field is required!",
+            c_barangay: "This field is required!",
+            c_purok: "This field is required!",
+            parcel: "This field is required!",
+            farmsize: "This field is required!",
+            ownership: "This field is required!",
+            nameofowner: "This field is required!",
+        },
+    });
+
+    $("#addFarmArea #nameofowner").bind("keyup blur", function () {
+        var node = $(this);
+        node.val(node.val().replace(/[0-9]/, ""));
+    });
+
+    $("#addFarmArea #ownership").on("change", function () {
+        var data = $(this).val();
+        var owner = $("#addFarmArea #owner").val();
+        if (data == "Owner") {
+            $("#addFarmArea #nameofowner")
+                .val(owner)
+                .attr("readonly", "readonly");
+        } else {
+            $("#addFarmArea #nameofowner").val("").removeAttr("readonly");
+        }
+    });
 
     $("#add_position_form").validate({
         rules: {
@@ -285,4 +332,49 @@ $(document).ready(function () {
             node.val(node.val().replace(/[^A-Za-z_\s]/, ""));
         } // (/[^a-z]/g,''
     );
+
+    // let mapOptions = {
+    //     center: [6.908245, 126.009111],
+    //     zoom: 30,
+    // };
+    // // var map = L.map('map').setView([6.908245, 126.009111], 4);
+    // // var map = L.map('map').setView([0,0], 4);
+    // var map = L.map("map", mapOptions);
+    // // Creating a Layer object
+    // var layer = new L.TileLayer(
+    //     "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    // );
+    // // Adding layer to the map
+    // map.addLayer(layer);
+    // // Creating a marker
+    // var marker = L.marker([6.908245, 126.009111]);
+    // // Adding marker to the map
+    // marker.addTo(map);
+
+    var map = L.map("map")
+    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+            'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
+    }).addTo(map);
+    // L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    //     attribution:
+    //         'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
+    // }).addTo(map);
+
+    var gpx = "/gpx/ADANTE ELIZABETH LARIBA 2.gpx"; // URL to your GPX file or the GPX itself
+    // new L.GPX(gpx, { async: true })
+    //     .on("loaded", function (e) {
+    //         map.fitBounds(e.target.getBounds());
+    //     })
+    //     .addTo(map);
+    new L.GPX(gpx, {
+        async: true,
+        marker_options: {
+          startIconUrl: '/gpx/images/pin-icon-start.png',
+          endIconUrl: '/gpx/images/pin-icon-end.png',
+          shadowUrl: '/gpx/images/pin-shadow.png'
+        }
+      }).on('loaded', function(e) {
+        map.fitBounds(e.target.getBounds());
+      }).addTo(map);
 });
