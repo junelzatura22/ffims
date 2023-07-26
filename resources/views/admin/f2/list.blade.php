@@ -44,7 +44,7 @@
                                                     <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
                                                         {{ $fdata->lname }}'s&nbsp;Farming Activity
-                                                        <span class="float-right badge text-md  bg-info">0</span>
+                                                        <span class="float-right badge text-md  bg-info">{{ $fdata->dataCount }}</span>
                                                     </a>
                                                 </li>
                                               
@@ -55,7 +55,7 @@
                                                     <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
                                                         {{ $fdata->lname }}'s&nbsp;Farming Activity
-                                                        <span class="float-right badge text-md  bg-info">0</span>
+                                                        <span class="float-right badge text-md  bg-info">{{ $fdata->dataCount }}</span>
                                                     </a>
                                                 </li>
                                                
@@ -66,7 +66,7 @@
                                                     <a href="{{ route('f2.activity',['id'=>$fdata->farmer_id]) }}" class="nav-link text-md">
                                                         {{ $fdata->gender == 'Male' ? 'Mr.' : 'Ms.' }}&nbsp;
                                                         {{ $fdata->lname }}'s&nbsp;Farming Activity
-                                                        <span class="float-right badge text-md  bg-info">0</span>
+                                                        <span class="float-right badge text-md  bg-info">{{ $fdata->dataCount }}</span>
                                                     </a>
                                                 </li>
                                                

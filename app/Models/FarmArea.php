@@ -25,4 +25,7 @@ class FarmArea extends Model
     public static function loadAreaOf($id){
         return DB::select('SELECT * FROM farmarea f where owned_by = :id',[$id]);
     }
+    public static function countFarmArea($id){
+        return DB::select('SELECT count(*) as dataCount FROM farmarea f where owned_by = :id',[$id]);
+    }
 }

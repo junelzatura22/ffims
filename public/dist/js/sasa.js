@@ -351,30 +351,33 @@ $(document).ready(function () {
     // // Adding marker to the map
     // marker.addTo(map);
 
-    var map = L.map("map")
-    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-            'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
-    }).addTo(map);
+
+    
+
+    // var map = L.map("map")
     // L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     //     attribution:
     //         'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
     // }).addTo(map);
+    // // L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    // //     attribution:
+    // //         'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
+    // // }).addTo(map);
 
-    var gpx = "/gpx/ADANTE ELIZABETH LARIBA 2.gpx"; // URL to your GPX file or the GPX itself
-    // new L.GPX(gpx, { async: true })
-    //     .on("loaded", function (e) {
-    //         map.fitBounds(e.target.getBounds());
-    //     })
-    //     .addTo(map);
-    new L.GPX(gpx, {
-        async: true,
-        marker_options: {
-          startIconUrl: '/gpx/images/pin-icon-start.png',
-          endIconUrl: '/gpx/images/pin-icon-end.png',
-          shadowUrl: '/gpx/images/pin-shadow.png'
-        }
-      }).on('loaded', function(e) {
-        map.fitBounds(e.target.getBounds());
-      }).addTo(map);
+    // var gpx = "/gpx/ADANTE ELIZABETH LARIBA 2.gpx"; // URL to your GPX file or the GPX itself
+    // // new L.GPX(gpx, { async: true })
+    // //     .on("loaded", function (e) {
+    // //         map.fitBounds(e.target.getBounds());
+    // //     })
+    // //     .addTo(map);
+    // new L.GPX(gpx, {
+    //     async: true,
+    //     marker_options: {
+    //       startIconUrl: '/gpx/images/pin-icon-start.png',
+    //       endIconUrl: '/gpx/images/pin-icon-end.png',
+    //       shadowUrl: '/gpx/images/pin-shadow.png'
+    //     }
+    //   }).on('loaded', function(e) {
+    //     map.fitBounds(e.target.getBounds());
+    //   }).addTo(map);
 });

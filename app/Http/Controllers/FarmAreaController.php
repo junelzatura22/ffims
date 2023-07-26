@@ -28,10 +28,11 @@ class FarmAreaController extends Controller
     {
         $f2data = Farmer::find($id);
         $countArea = FarmArea::showFarmAreaOf($id);
+       
         if (!empty($f2data)) {
             $region = Region::showRegion();
             $areaIdentifier = "Register Area to " . $f2data->fname . " " . $f2data->lname;
-            return view('admin.f2.addarea', compact('areaIdentifier',  'f2data', 'region', 'countArea'));
+            return view('admin.f2.addarea', compact('areaIdentifier',  'f2data', 'region', 'countArea','totalArea'));
         } else {
             $areaIdentifier = "INVALID DATA SEARCHING";
             return view('layouts.abort', compact('areaIdentifier'));

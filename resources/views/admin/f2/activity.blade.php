@@ -3,7 +3,7 @@
 @section('content-details')
     {{-- All start with the row  --}}
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
 
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
@@ -51,7 +51,7 @@
 
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header p-2">
                     <div class="d-flex justify-content-between align-items-center p-1">
@@ -62,46 +62,83 @@
                 </div><!-- /.card-header -->
                 <div class="card-body">
 
-                    @foreach ($loadAreas as $farmerArea)
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
 
-                                    <div class="card-body">
-                                        <h5 class="card-title"><strong>Farm Details</strong></h5>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Farm
-                                            Name:&nbsp;<strong>{{ $farmerArea->farmname }}</strong></li>
-                                        <li class="list-group-item">Farm
-                                            Size:&nbsp;<strong>{{ $farmerArea->farmsize }}</strong></li>
-                                        <li class="list-group-item">Farm
-                                            Parcel:&nbsp;<strong>{{ $farmerArea->parcel }}</strong></li>
-                                        <li class="list-group-item">
-                                            Purok:&nbsp;<strong>{{ $farmerArea->c_purok }}</strong></li>
-                                        <li class="list-group-item">
-                                            Barangay:&nbsp;<strong>{{ $farmerArea->c_barangay }}</strong></li>
-                                        <li class="list-group-item">
-                                            City/Municipality:&nbsp;<strong>{{ $farmerArea->c_citymun }}</strong></li>
-                                        <li class="list-group-item">
-                                            Province:&nbsp;<strong>{{ $farmerArea->c_province }}</strong></li>
-                                        <li class="list-group-item">
-                                            Region:&nbsp;<strong>{{ $farmerArea->c_region }}</strong></li>
+                    <div class="row">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px"
+                                            class="bg-gradient-green text-sm font-weight-bold text-center">#</th>
+                                        <th>Farm Name</th>
+                                        <th>Size</th>
+                                        <th>Parcel</th>
+                                        <th>Location</th>
+                                        <th>Date Created</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($loadAreas as $farmerArea => $item)
+                                        @if ($item->farmstatus == 'active')
+                                            <tr id={{ $item->farm_id }}>
+                                                <td class="bg-gradient-green text-sm font-weight-bold text-center">
+                                                    {{ $farmerArea + 1 }}</td>
+                                                <td class="">{{ $item->farmname }}</td>
+                                                <td class="">{{ $item->farmsize }}</td>
+                                                <td class="">{{ $item->parcel }}</td>
+                                                @php
+                                                    $location = $item->c_purok . ', ' . $item->c_barangay . ', ' . $item->c_citymun;
+                                                @endphp
+                                                <td class="">{{ $location }}</td>
+                                                <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}
+                                                </td>
+                                                <td>
+                                                    <a href="" class="text-success mx-1 getEditCommodity"
+                                                        id="editCommodityModal_" data-bs-toggle="modal"
+                                                        data-bs-target="#editCommodityModal">
+                                                        <i class="bi-pencil-square h5"></i></a>
+                                                    <a href="" class="text-danger mx-1 getDeleteCommodity"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
+                                                        <i class="bi-trash h5"></i></a>
+                                                    <a href="" class="text-danger mx-1 getDeleteCommodity"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
+                                                        <i class="bi-pencil h5"></i></a>
+                                                </td>
+                                            </tr>
+                                        @else
+                                        <tr id={{ $item->farm_id }} class="bg-gray">
+                                            <td class="bg-gradient-green text-sm font-weight-bold text-center">
+                                                {{ $farmerArea + 1 }}</td>
+                                            <td class="">{{ $item->farmname }}</td>
+                                            <td class="">{{ $item->farmsize }}</td>
+                                            <td class="">{{ $item->parcel }}</td>
+                                            @php
+                                                $location = $item->c_purok . ', ' . $item->c_barangay . ', ' . $item->c_citymun;
+                                            @endphp
+                                            <td class="">{{ $location }}</td>
+                                            <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}
+                                            </td>
+                                            <td>
+                                                <a href="" class="text-success mx-1 getEditCommodity"
+                                                    id="editCommodityModal_" data-bs-toggle="modal"
+                                                    data-bs-target="#editCommodityModal">
+                                                    <i class="bi-pencil-square h5"></i></a>
+                                                <a href="" class="text-danger mx-1 getDeleteCommodity"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
+                                                    <i class="bi-trash h5"></i></a>
+                                                <a href="" class="text-danger mx-1 getDeleteCommodity"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
+                                                    <i class="bi-pencil h5"></i></a>
+                                            </td>
+                                        </tr>
 
-                                    </ul>
-
-
-                                </div>
-                            </div>
-                            <div class="col-md-8" id="map">
-                               
-
-                            </div>
-                           
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    @endforeach
-
-
+                    </div>
 
                 </div><!-- /.card-body -->
             </div>

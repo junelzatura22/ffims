@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barangay;
 use App\Models\City;
+use App\Models\FarmArea;
 use App\Models\Farmer;
 use App\Models\Province;
 use App\Models\Region;
@@ -19,6 +20,7 @@ class FarmerFisherfolk extends Controller
     {
         $farmerData = Farmer::showAllFarmer();
         $areaIdentifier = "Farmer and Fisherfolk";
+       
         return view('admin.f2.list', compact('areaIdentifier', 'farmerData'));
     }
     public function register()
