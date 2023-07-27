@@ -60,6 +60,7 @@
                             class="btn bg-gradient-green bi-plus-circle">&nbsp;Add Area</a>
                     </div>
                 </div><!-- /.card-header -->
+                @include('_message')
                 <div class="card-body">
 
 
@@ -80,7 +81,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($loadAreas as $farmerArea => $item)
-                                        @if ($item->farmstatus == 'active')
+                                        @if ($item->farmstatus == 'Active')
                                             <tr id={{ $item->farm_id }}>
                                                 <td class="bg-gradient-green text-sm font-weight-bold text-center">
                                                     {{ $farmerArea + 1 }}</td>
@@ -94,45 +95,39 @@
                                                 <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}
                                                 </td>
                                                 <td>
-                                                    <a href="" class="text-success mx-1 getEditCommodity"
-                                                        id="editCommodityModal_" data-bs-toggle="modal"
-                                                        data-bs-target="#editCommodityModal">
-                                                        <i class="bi-pencil-square h5"></i></a>
-                                                    <a href="" class="text-danger mx-1 getDeleteCommodity"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
-                                                        <i class="bi-trash h5"></i></a>
-                                                    <a href="" class="text-danger mx-1 getDeleteCommodity"
-                                                        data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
-                                                        <i class="bi-pencil h5"></i></a>
+                                                    <a href="{{ route('f2.getFarmData', ['fid' => $item->farm_id]) }}"
+                                                        class="btn-warning p-2" id="" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Edit Farm Data">
+                                                        <i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a href="{{ route('f2.farmStatus', ['fid' => $item->farm_id]) }}" class="btn-primary p-2" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Change Farm status">
+                                                        <i class="fa-solid fa-pencil"></i></a>
+                                                    <a href="" class="btn-success p-2" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Add Farm Data">
+                                                        <i class="fa-solid fa-marker"></i></a>
                                                 </td>
                                             </tr>
                                         @else
-                                        <tr id={{ $item->farm_id }} class="bg-gray">
-                                            <td class="bg-gradient-green text-sm font-weight-bold text-center">
-                                                {{ $farmerArea + 1 }}</td>
-                                            <td class="">{{ $item->farmname }}</td>
-                                            <td class="">{{ $item->farmsize }}</td>
-                                            <td class="">{{ $item->parcel }}</td>
-                                            @php
-                                                $location = $item->c_purok . ', ' . $item->c_barangay . ', ' . $item->c_citymun;
-                                            @endphp
-                                            <td class="">{{ $location }}</td>
-                                            <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}
-                                            </td>
-                                            <td>
-                                                <a href="" class="text-success mx-1 getEditCommodity"
-                                                    id="editCommodityModal_" data-bs-toggle="modal"
-                                                    data-bs-target="#editCommodityModal">
-                                                    <i class="bi-pencil-square h5"></i></a>
-                                                <a href="" class="text-danger mx-1 getDeleteCommodity"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
-                                                    <i class="bi-trash h5"></i></a>
-                                                <a href="" class="text-danger mx-1 getDeleteCommodity"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteCommodityModal">
-                                                    <i class="bi-pencil h5"></i></a>
-                                            </td>
-                                        </tr>
+                                            <tr id={{ $item->farm_id }} class="bg-gray">
+                                                <td class="bg-gradient-green text-sm font-weight-bold text-center">
+                                                    {{ $farmerArea + 1 }}</td>
+                                                <td class="">{{ $item->farmname }}</td>
+                                                <td class="">{{ $item->farmsize }}</td>
+                                                <td class="">{{ $item->parcel }}</td>
+                                                @php
+                                                    $location = $item->c_purok . ', ' . $item->c_barangay . ', ' . $item->c_citymun;
+                                                @endphp
+                                                <td class="">{{ $location }}</td>
+                                                <td class="">{{ date('F, d Y h:i A', strtotime($item->created_at)) }}
+                                                </td>
+                                                <td>
 
+                                                    <a href="{{ route('f2.farmStatus', ['fid' => $item->farm_id]) }}" class="btn-primary p-2" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Change Farm status">
+                                                        <i class="fa-solid fa-pencil"></i></a>
+                                                    
+                                                </td>
+                                            </tr>
                                         @endif
                                     @endforeach
                                 </tbody>

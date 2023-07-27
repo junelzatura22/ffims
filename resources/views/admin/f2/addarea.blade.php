@@ -6,7 +6,7 @@
 
         <!-- /.col -->
         <div class="col">
-            <form action="{{ route('f2.storefarm', ['id' => $f2data->farmer_id]) }}" method="post" id="addFarmArea">
+            <form action="" method="post" id="addFarmArea">
                 @csrf
                 <div class="card">
                     <div class="card-header p-2">

@@ -79,6 +79,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/f2/activity/{id}',[FarmAreaController::class,'activity'])->name('f2.activity');
     Route::get('/f2/farm/{id}',[FarmAreaController::class,'addfarm'])->name('f2.addfarm');
     Route::post('/f2/farm/{id}',[FarmAreaController::class,'store'])->name('f2.storefarm');
+    Route::get('/f2/farm/mod/{fid}',[FarmAreaController::class,'getFarmData'])->name('f2.getFarmData');
+    Route::post('/f2/farm/mod/{fid}',[FarmAreaController::class,'updateFarmData'])->name('f2.updateFarmData');
+    //update farm status
+    Route::get('/f2/fs/{fid}',[FarmAreaController::class,'farmStatus'])->name('f2.farmStatus');
+    Route::post('/f2/fs/{fid}',[FarmAreaController::class,'farmStatusUpdate'])->name('f2.farmStatusUpdate');
 });
 
 Route::group(['middleware' => 'technician'], function () {
